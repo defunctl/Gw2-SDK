@@ -36,8 +36,6 @@ print_r($matches);
 #### More Examples
 
 An example folder was included so you can test this out on your webserver.
-...
-```
 
 ### About Caching
 
