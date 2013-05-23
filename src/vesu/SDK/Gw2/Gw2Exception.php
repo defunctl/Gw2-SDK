@@ -7,7 +7,7 @@ namespace vesu\SDK\Gw2;
  * 
  * 
  * @author Justin Frydman
- * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
+ * @license https://github.com/defunctl/Gw2-SDK/blob/master/LICENSE.md MIT
  */
 class Gw2Exception extends \Exception
 {
