@@ -10,7 +10,7 @@ require(dirname(__FILE__).'/Gw2Cache.php');
  * PHP SDK for interacting with the Guild Wars 2 API
  * 
  * @author Justin Frydman
- * @license https://github.com/jofner/Twitch-SDK/blob/master/LICENSE.md MIT
+ * @license https://github.com/defunctl/Gw2-SDK/blob/master/LICENSE.md MIT
  * @version 0.1 beta
  */
 class Gw2SDK
