@@ -1,6 +1,6 @@
 # Guild Wars 2 SDK for PHP
 
-> This is an unofficial [Gw2 SDK for PHP](https://github.com/jofner/Twitch-SDK).
+> This is an unofficial [Gw2 SDK for PHP](https://github.com/defunctl/Gw2-SDK).
 The SDK is currently under development, so functions, readme and/or examples will
 change. As Arenanet provides more options, I'll try to add them in. Feel free to 
 fork and help out!
