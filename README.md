@@ -27,7 +27,7 @@ $gw2 = new Gw2SDK;
 #### Basic usage (public functions only)
 
 ```php
-$gw2 = new Gw2SDK(dirname(__FILE__).'/cache'); // path to webserver writable folder
+$gw2 = new Gw2SDK(dirname(__FILE__).'/cache'); // path to a webserver writable folder
 $matches = $gw2->getMatches();
 print_r($matches);
 ...
