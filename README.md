@@ -49,3 +49,4 @@ Refer to the LICENSE.md file for license information
 
 [Gw2 SDK](https://github.com/defunctl/Gw2-SDK), 
 [Guild Wars 2](http://www.guildwars2.com/), 
+[Guild Wars 2 API](https://forum-en.guildwars2.com/forum/community/api),
