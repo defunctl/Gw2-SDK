@@ -41,8 +41,6 @@ An example folder was included so you can test this out on your webserver.
 
 Use a caching directory as it will greatly improve peformance. Original Cache class was written by [Oliver Schwarz](https://github.com/oliverschwarz/). Vielen Dank!
 
-More examples you can find soon at Wiki pages.
-
 ## Licenses
 
 Refer to the LICENSE.md file for license information
