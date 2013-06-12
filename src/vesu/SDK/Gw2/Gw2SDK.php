@@ -56,7 +56,7 @@ class Gw2SDK
 	const URL_API = 'https://api.guildwars2.com/';
 	const URL_EVENTS = 'events.json?world_id=%d';
 	const URL_EVENT_NAMES = 'event_names.json';
-	const URL_MAP_NAMES = 'map_names.json';
+	const URL_MAP_NAMES = 'map_names.json?lang=%s';
 	const URL_WORLD_NAMES = 'world_names.json?lang=%s';
 	const URL_MATCHES = '/wvw/matches.json';
 	const URL_MATCH_DETAILS = '/wvw/match_details.json?match_id=%s';
@@ -261,6 +261,47 @@ class Gw2SDK
 				return $world->name;
 		}
    	}
+
+	/**
+   	 * Get Maps
+   	 * @param bool $sort Whether to sort the map list alphabetically
+   	 * @param string $lang The language to return e.g. 'de'
+   	 * @param seconds $cache How long to cache this result for
+   	 */
+   	public function getMaps($sort = true, $lang = null, $cache = 86400)
+   	{
+   		if(!$lang)
+   			$lang = $this->lang;
+
+   		if($sort === true) {
+   			$maps = $this->request(sprintf(self::URL_MAP_NAMES, $lang), $cache);
+   			usort($maps, array($this, 'compareServerByName'));
+   			return $maps;
+   		} else {
+   			return $this->request(sprintf(self::URL_MAP_NAMES, $lang), $cache);
+   		}
+   		
+   	}
+
+   	/**
+   	 * Parse a Maps's Name by ID
+   	 * @param integer $server_id The Server ID
+   	 * @param string $lang The language to return e.g. 'de'
+   	 * @param seconds $cache How long to cache this result for
+   	 */
+   	public function parseMapName($map_id, $lang = null, $cache = 86400)
+   	{
+   		if(!$lang)
+   			$lang = $this->lang;
+
+		$maps = $this->getMaps(false, $lang, $cache);
+
+		foreach($maps as $map) {
+			if($map->id == $map_id)
+				return $map->name;
+		}
+   	}
+
 
    	/** 
    	 * Get Items
