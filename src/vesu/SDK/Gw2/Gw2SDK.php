@@ -55,6 +55,7 @@ class Gw2SDK
 	 */
 	const URL_API = 'https://api.guildwars2.com/';
 	const URL_EVENTS = 'events.json?world_id=%d';
+	const URL_MAP_EVENTS = 'events.json?world_id=%d&map_id=%d';
 	const URL_EVENT_NAMES = 'event_names.json';
 	const URL_MAP_NAMES = 'map_names.json?lang=%s';
 	const URL_WORLD_NAMES = 'world_names.json?lang=%s';
@@ -91,6 +92,17 @@ class Gw2SDK
     public function getEvents($world_id, $cache = 900)
     {
     	return $this->request(sprintf(self::URL_EVENTS, $world_id), $cache);
+    }
+
+    /** 
+     * Get Event by Map ID
+	 * @param integer $world_id The world ID
+	 * @param integer $map_id The map ID
+     * @param seconds $cache How long to cache this result for
+     */
+    public function getEventsByMapId($world_id, $map_id, $cache = 900)
+    {
+    	return $this->request(sprintf(self::URL_MAP_EVENTS, $world_id, $map_id), $cache);
     }
 
     /**
