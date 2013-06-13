@@ -10,8 +10,9 @@ require(dirname(__FILE__).'/Gw2Cache.php');
  * PHP SDK for interacting with the Guild Wars 2 API
  * 
  * @author Justin Frydman
+ * @author Thomas Winter (modified)
  * @license https://github.com/defunctl/Gw2-SDK/blob/master/LICENSE.md MIT
- * @version 0.1 beta
+ * @version 0.2 beta
  */
 class Gw2SDK
 {
@@ -47,7 +48,7 @@ class Gw2SDK
     protected $cache;
 
 	/** @var string Set the useragent */
-	private $useragent = 'vesu Gw2SDK 0.1 beta';
+	private $useragent = 'vesu Gw2SDK 0.2 beta';
 
 	
 	/** 
@@ -91,18 +92,20 @@ class Gw2SDK
      */
     public function getEvents($world_id, $cache = 900)
     {
-    	return $this->request(sprintf(self::URL_EVENTS, $world_id), $cache);
+    	$data = $this->request(sprintf(self::URL_EVENTS, $world_id), $cache);
+    	return $data->events;
     }
 
     /** 
      * Get Event by Map ID
-	 * @param integer $world_id The world ID
-	 * @param integer $map_id The map ID
+     * @param integer $world_id The world ID
+     * @param integer $map_id The map ID
      * @param seconds $cache How long to cache this result for
      */
     public function getEventsByMapId($world_id, $map_id, $cache = 900)
     {
-    	return $this->request(sprintf(self::URL_MAP_EVENTS, $world_id, $map_id), $cache);
+    	$data = $this->request(sprintf(self::URL_MAP_EVENTS, $world_id, $map_id), $cache);
+    	return $data->events;
     }
 
     /**
