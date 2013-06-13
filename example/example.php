@@ -12,7 +12,7 @@ require (dirname(__FILE__).'/../vesu/SDK/Gw2/Gw2SDK.php');
 require (dirname(__FILE__) .'/../vesu/SDK/Gw2/Gw2Exception.php');
 
 use \vesu\SDK\Gw2\Gw2SDK;
-use \vesu\SDK\Gw2\TwitchException;
+use \vesu\SDK\Gw2\Gw2Exception;
 
 /* Initiate SDK with caching */
 $gw2 = new Gw2SDK(dirname(__FILE__).'/cache');
