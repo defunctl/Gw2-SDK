@@ -8,8 +8,8 @@
  */
 
 /* Require SDK */
-require (dirname(__FILE__).'/vesu/SDK/Gw2/Gw2SDK.php');
-require (dirname(__FILE__) .'/vesu/SDK/Gw2/Gw2Exception.php');
+require (dirname(__FILE__).'/../vesu/SDK/Gw2/Gw2SDK.php');
+require (dirname(__FILE__) .'/../vesu/SDK/Gw2/Gw2Exception.php');
 
 use \vesu\SDK\Gw2\Gw2SDK;
 use \vesu\SDK\Gw2\TwitchException;
