@@ -31,6 +31,7 @@ $gw2 = new Gw2SDK(dirname(__FILE__).'/cache');
 
 $world_id = 2201;
 /*
+ You can initiate without world_id for ALL Events, but I really wouldn't recommend it ;-)
 if(!empty($_GET['world']))
   $world_id = filter_input(INPUT_GET, 'world', FILTER_SANITIZE_NUMBER_INT);
 	
@@ -89,27 +90,6 @@ if(!empty($_GET['map']))
 				-moz-border-radius: 8px;
 				border-radius: 8px;	
 				background: #fff;		
-			}
-			
-			.section {
-				clear: both;
-			}
-
-			.server span {
-				color: #000;
-				font-weight: bold;
-			}
-
-			.server.red {
-				color: #b80202;
-			}
-			
-			.server.blue {
-				color: #3d63d1;
-			}
-
-			.server.green {
-				color: green;
 			}
 
 		</style>
