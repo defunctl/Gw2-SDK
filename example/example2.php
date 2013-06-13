@@ -129,7 +129,7 @@ if(!empty($_GET['map']))
 						$events = $gw2->getEventsByMapId($world_id, $map_id);
 					} else {
 						/* Grab all the events */
-						$events = $gw2->getEvents();
+						$events = $gw2->getEvents($world_id);
 					}
 				?>
 
