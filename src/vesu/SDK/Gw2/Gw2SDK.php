@@ -10,15 +10,16 @@ require(dirname(__FILE__).'/Gw2Cache.php');
  * PHP SDK for interacting with the Guild Wars 2 API
  * 
  * @author Justin Frydman
- * @author Thomas Winter (modified)
  * @license https://github.com/defunctl/Gw2-SDK/blob/master/LICENSE.md MIT
- * @version 0.2 beta
+ * @version 0.3 beta
+ * @extended with map functions / thomas winter / 0.2
+ * @extended with event details, server language / thomas winter / 0.3
  */
 class Gw2SDK
 {
 
     /** @var string The default language to return results */
-    public $lang = 'en';
+    public $lang = 'de';
 
     /** @var string The Guild Wars 2 API Version to call */
     public $api_version = 'v1';
@@ -48,7 +49,7 @@ class Gw2SDK
     protected $cache;
 
 	/** @var string Set the useragent */
-	private $useragent = 'vesu Gw2SDK 0.2 beta';
+	private $useragent = 'vesu Gw2SDK 0.3 beta';
 
 	
 	/** 
@@ -57,8 +58,9 @@ class Gw2SDK
 	const URL_API = 'https://api.guildwars2.com/';
 	const URL_EVENTS = 'events.json?world_id=%d';
 	const URL_MAP_EVENTS = 'events.json?world_id=%d&map_id=%d';
-	const URL_EVENT_NAMES = 'event_names.json?lang=%s';
-	const URL_MAP_NAMES = 'map_names.json?lang=%s';
+	const URL_EVENT_NAMES = 'event_names.json?lang=%s';                  //Edit by TW
+	const URL_EVENT_DETAILS = 'event_details.json?event_id=%d&lang=%s';  //Edit by TW 
+	const URL_MAP_NAMES = 'map_names.json?lang=%s';                      //Edit by TW
 	const URL_WORLD_NAMES = 'world_names.json?lang=%s';
 	const URL_MATCHES = '/wvw/matches.json';
 	const URL_MATCH_DETAILS = '/wvw/match_details.json?match_id=%s';
@@ -82,7 +84,7 @@ class Gw2SDK
         // Set up the cache object
         if(!empty($cache_dir)) {
         	$this->cache = new Gw2Cache($cache_dir);
-        }      
+        }
     }	
 
     /**
@@ -95,28 +97,41 @@ class Gw2SDK
     	$data = $this->request(sprintf(self::URL_EVENTS, $world_id), $cache);
     	return $data->events;
     }
+	
+	/**
+     * Get Events Details
+     * @param integer $event_id The Event ID
+	 * @param string $lang The language to return e.g. 'de'
+     * @param seconds $cache How long to cache this result for
+     */
+    public function getEventDetails($event_id, $cache = 900)
+    {
+    	return $this->request(sprintf(self::URL_EVENT_DETAILS, $event_id, $lang), $cache);
+    }
 
     /** 
      * Get Event by Map ID
-     * @param integer $world_id The world ID
-     * @param integer $map_id The map ID
+	 * @param integer $world_id The world ID
+	 * @param integer $map_id The map ID
      * @param seconds $cache How long to cache this result for
      */
     public function getEventsByMapId($world_id, $map_id, $cache = 900)
     {
-    	$data = $this->request(sprintf(self::URL_MAP_EVENTS, $world_id, $map_id), $cache);
-    	return $data->events;
-    }
-
+   		$data = $this->request(sprintf(self::URL_MAP_EVENTS, $world_id, $map_id), $cache);
+		return $data->events;
+		
+    }	
+	
     /**
      * Parse Event Name
-     * @param string $event_id The Event ID
+     * @param integer $event_id The Event ID
+	 * @param string $lang The language to return e.g. 'de'
      * @param seconds $cache How long to cache this result for
      */
     public function parseEventName($event_id, $lang = null, $cache = 86400)
     {
-    	if(!$lang)
-   		$lang = $this->lang;
+		if(!$lang)
+   			$lang = $this->lang;
 			
     	$events = $this->request(sprintf(self::URL_EVENT_NAMES, $lang), $cache);
 
@@ -125,7 +140,7 @@ class Gw2SDK
     			return $event->name;
     	}
     }
-
+	
     /**
      * Get Matches
      * @param seconds $cache How long to cache this result for
@@ -279,9 +294,30 @@ class Gw2SDK
 				return $world->name;
 		}
    	}
-
+	
 	/**
-   	 * Get Maps
+   	 * Parse a Worlds's Language by ID                                                     //add by TW
+   	 * @param integer $server_id The Server ID
+   	 */
+   	public function parseWorldLanguage($world_id)
+   	{
+	    if($world_id > 1000 && $world_id < 2000) {
+		    return "us";
+		} else if($world_id > 2000 && $world_id < 2100) {
+		    return "eu";
+		} else if($world_id > 2100 && $world_id < 2200) {
+		    return "fr";
+		} else if($world_id > 2200 && $world_id < 2300) {
+		    return "de";
+		} else if($world_id > 2300 && $world_id < 2400) {
+			return "es";
+		} else {
+		    return "xx";
+		}
+   	}
+	
+	/**
+   	 * Get Maps                                                                            //add by TW
    	 * @param bool $sort Whether to sort the map list alphabetically
    	 * @param string $lang The language to return e.g. 'de'
    	 * @param seconds $cache How long to cache this result for
@@ -302,7 +338,7 @@ class Gw2SDK
    	}
 
    	/**
-   	 * Parse a Maps's Name by ID
+   	 * Parse a Maps's Name by ID                                                           //add by TW
    	 * @param integer $server_id The Server ID
    	 * @param string $lang The language to return e.g. 'de'
    	 * @param seconds $cache How long to cache this result for
@@ -319,7 +355,6 @@ class Gw2SDK
 				return $map->name;
 		}
    	}
-
 
    	/** 
    	 * Get Items
