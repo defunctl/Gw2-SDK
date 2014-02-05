@@ -19,7 +19,7 @@ class Gw2SDK
 {
 
     /** @var string The default language to return results */
-    public $lang = 'de';
+    public $lang = 'en';
 
     /** @var string The Guild Wars 2 API Version to call */
     public $api_version = 'v1';
